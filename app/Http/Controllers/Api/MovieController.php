@@ -39,6 +39,9 @@ class MovieController extends Controller
         try {
             $movie = Movie::create($request->validated());
 
+            $movie->genres()->sync($request->validated('genres'));
+            $movie->actors()->sync($request->validated('actors'));
+
             return response()->json([
                 'success' => true,
                 'message' => 'Le film a été créé',
@@ -49,22 +52,27 @@ class MovieController extends Controller
         }
     }
 
-    public function show(Movie $movie): JsonResponse
+    public function show(string $id): JsonResponse
     {
         try {
             return response()->json([
                 'success' => true,
-                'data' => $movie,
+                'data' => Movie::with(['genres', 'actors'])->find($id),
             ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
 
-    public function update(MovieFormRequest $request, Movie $movie): JsonResponse
+    public function update(MovieFormRequest $request, string $id): JsonResponse
     {
         try {
+            /** @var Movie $movie */
+            $movie = Movie::with(['genres', 'actors'])->find($id);
             $movie->update($request->validated());
+
+            $movie->genres()->sync($request->validated('genres'));
+            $movie->actors()->sync($request->validated('actors'));
 
             return response()->json([
                 'success' => true,

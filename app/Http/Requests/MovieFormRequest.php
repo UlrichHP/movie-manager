@@ -25,6 +25,8 @@ class MovieFormRequest extends FormRequest
             'description' => ['string'],
             'year' => ['required', 'integer'],
             'duration' => ['string'],
+            'genres' => ['array', 'exists:genres,id'],
+            'actors' => ['array', 'exists:actors,id'],
         ];
     }
 

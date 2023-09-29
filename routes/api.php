@@ -17,19 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-    'prefix' => 'movies',
-], function () {
+Route::prefix('movies')->group(function () {
     Route::get('/', [MovieController::class, 'index']);
-    Route::get('/{movie}/show', [MovieController::class, 'show']);
+    Route::get('/{id}/show', [MovieController::class, 'show']);
     Route::post('/create', [MovieController::class, 'store']);
-    Route::put('/{movie}/edit', [MovieController::class, 'update']);
+    Route::put('/{id}/edit', [MovieController::class, 'update']);
     Route::delete('/{movie}/delete', [MovieController::class, 'destroy']);
 });
 
-Route::group([
-    'prefix' => 'genres',
-], function () {
+Route::prefix('genres')->group(function () {
     Route::get('/', [GenreController::class, 'index']);
     Route::get('/{genre}/show', [GenreController::class, 'show']);
     Route::post('/create', [GenreController::class, 'store']);
@@ -37,9 +33,7 @@ Route::group([
     Route::delete('/{genre}/delete', [GenreController::class, 'destroy']);
 });
 
-Route::group([
-    'prefix' => 'actors',
-], function () {
+Route::prefix('actors')->group(function () {
     Route::get('/', [ActorController::class, 'index']);
     Route::get('/{actor}/show', [ActorController::class, 'show']);
     Route::post('/create', [ActorController::class, 'store']);
