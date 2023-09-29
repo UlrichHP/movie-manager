@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MovieFormRequest;
-use App\Models\Movie;
+use App\Http\Requests\GenreFormRequest;
+use App\Models\Genre;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 use function response;
 
-class MovieController extends Controller
+class GenreController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $query = Movie::query();
+        $query = Genre::query();
         $search = $request->input('search');
 
         if (null !== $search) {
@@ -34,56 +34,56 @@ class MovieController extends Controller
         }
     }
 
-    public function store(MovieFormRequest $request): JsonResponse
+    public function store(GenreFormRequest $request): JsonResponse
     {
         try {
-            $movie = Movie::create($request->validated());
+            $genre = Genre::create($request->validated());
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le film a été créé',
-                'data' => $movie,
+                'message' => 'Le genre a été créé',
+                'data' => $genre,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
 
-    public function show(Movie $movie): JsonResponse
+    public function show(Genre $genre): JsonResponse
     {
         try {
             return response()->json([
                 'success' => true,
-                'data' => $movie,
+                'data' => $genre,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
 
-    public function update(MovieFormRequest $request, Movie $movie): JsonResponse
+    public function update(GenreFormRequest $request, Genre $genre): JsonResponse
     {
         try {
-            $movie->update($request->validated());
+            $genre->update($request->validated());
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le film a été modifie',
-                'data' => $movie,
+                'message' => 'Le genre a été modifie',
+                'data' => $genre,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
 
-    public function destroy(Movie $movie): JsonResponse
+    public function destroy(Genre $genre): JsonResponse
     {
         try {
-            $movie->delete();
+            $genre->delete();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le film a été supprimé',
+                'message' => 'Le genre a été supprimé',
             ]);
         } catch (Exception $e) {
             return response()->json($e);

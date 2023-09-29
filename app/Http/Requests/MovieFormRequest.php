@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CreateMovieRequest extends FormRequest
+class MovieFormRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -21,8 +21,10 @@ class CreateMovieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'year' => 'required|integer',
+            'title' => ['required', 'string'],
+            'description' => ['string'],
+            'year' => ['required', 'integer'],
+            'duration' => ['string'],
         ];
     }
 

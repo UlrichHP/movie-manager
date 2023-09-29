@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMovieRequest extends FormRequest
+class GenreFormRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -19,8 +19,7 @@ class UpdateMovieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'year' => 'required|integer',
+            'name' => ['required', 'string'],
         ];
     }
 }

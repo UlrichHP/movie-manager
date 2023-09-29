@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\GenreController;
 use App\Http\Controllers\Api\MovieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,12 @@ Route::get('/movies/{movie}/show', [MovieController::class, 'show']);
 Route::post('/movies/create', [MovieController::class, 'store']);
 Route::put('/movies/{movie}/edit', [MovieController::class, 'update']);
 Route::delete('/movies/{movie}/delete', [MovieController::class, 'destroy']);
+
+Route::get('/genres', [GenreController::class, 'index']);
+Route::get('/genres/{genre}/show', [GenreController::class, 'show']);
+Route::post('/genres/create', [GenreController::class, 'store']);
+Route::put('/genres/{genre}/edit', [GenreController::class, 'update']);
+Route::delete('/genres/{genre}/delete', [GenreController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
