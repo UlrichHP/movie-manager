@@ -8,17 +8,27 @@ use App\Http\Requests\UpdateMovieRequest;
 use App\Models\Movie;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 use function response;
 
 class MovieController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        $query = Movie::query();
+        $search = $request->input('search');
+
+        if (null !== $search) {
+            $query->where('title', 'like', "%$search%");
+        }
+
+        $result = $query->paginate(3);
+
         try {
             return response()->json([
                 'success' => true,
-                'data' => Movie::all(),
+                'data' => $result,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
