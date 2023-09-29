@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GenreFormRequest;
-use App\Models\Genre;
+use App\Http\Requests\ActorFormRequest;
+use App\Models\Actor;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 use function response;
 
-class GenreController extends Controller
+class ActorController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $query = Genre::query();
+        $query = Actor::query();
         $search = $request->input('search');
 
         if (null !== $search) {
@@ -34,56 +34,56 @@ class GenreController extends Controller
         }
     }
 
-    public function store(GenreFormRequest $request): JsonResponse
+    public function store(ActorFormRequest $request): JsonResponse
     {
         try {
-            $genre = Genre::create($request->validated());
+            $actor = Actor::create($request->validated());
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le genre a été créé',
-                'data' => $genre,
+                'message' => 'L\'acteur(rice) a été créé',
+                'data' => $actor,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
 
-    public function show(Genre $genre): JsonResponse
+    public function show(Actor $actor): JsonResponse
     {
         try {
             return response()->json([
                 'success' => true,
-                'data' => $genre,
+                'data' => $actor,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
 
-    public function update(GenreFormRequest $request, Genre $genre): JsonResponse
+    public function update(ActorFormRequest $request, Actor $actor): JsonResponse
     {
         try {
-            $genre->update($request->validated());
+            $actor->update($request->validated());
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le genre a été modifie',
-                'data' => $genre,
+                'message' => 'L\'acteur(rice) a été modifie',
+                'data' => $actor,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
 
-    public function destroy(Genre $genre): JsonResponse
+    public function destroy(Actor $actor): JsonResponse
     {
         try {
-            $genre->delete();
+            $actor->delete();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le genre a été supprimé',
+                'message' => 'L\'acteur(rice) a été supprimé',
             ]);
         } catch (Exception $e) {
             return response()->json($e);
