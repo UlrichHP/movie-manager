@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MovieFormRequest;
+use App\Http\Requests\SearchRequest;
+use App\Models\Actor;
+use App\Models\Genre;
 use App\Models\Movie;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -13,21 +16,30 @@ use function response;
 
 class MovieController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(SearchRequest $request): JsonResponse
     {
-        $query = Movie::query();
-        $search = $request->input('search');
+        $query = Movie::query()->with(['genres', 'actors']);
 
-        if (null !== $search) {
-            $query->where('title', 'like', "%$search%");
+        if ($title = $request->validated('title')) {
+            $query->where('title', 'like', "%$title%");
         }
 
-        $result = $query->paginate(3);
+        if ($genre = $request->validated('genre')) {
+            $query->whereHas('genres', function($query) use ($genre) {
+                $query->where('name', 'like', "%$genre%");
+            });
+        }
+
+        if ($actor = $request->validated('actor')) {
+            $query->whereHas('actors', function($query) use ($actor) {
+                $query->where('name', 'like', "%$actor%");
+            });
+        }
 
         try {
             return response()->json([
                 'success' => true,
-                'data' => $result,
+                'data' => $query->paginate(3),
             ]);
         } catch (Exception $e) {
             return response()->json($e);

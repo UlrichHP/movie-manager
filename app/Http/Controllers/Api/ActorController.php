@@ -22,12 +22,10 @@ class ActorController extends Controller
             $query->where('name', 'like', "%$search%");
         }
 
-        $result = $query->paginate(3);
-
         try {
             return response()->json([
                 'success' => true,
-                'data' => $result,
+                'data' => $query->paginate(3),
             ]);
         } catch (Exception $e) {
             return response()->json($e);
