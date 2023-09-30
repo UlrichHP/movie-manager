@@ -24,3 +24,21 @@
 
 - **Pagination :**
   - Paginer la liste des films pour une meilleure gestion des résultats.
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/UlrichHP/movie-manager.git`
+
+2. Navigate to the project directory: `cd movie-manager`
+
+3. Install dependencies using Composer: `composer install`
+
+4. Create a copy of the `.env.example` file and rename it to `.env`. Update the necessary configuration variables such as database credentials.
+
+5. Generate an application key: `php artisan key:generate`
+
+6. Run database migrations: `php artisan migrate`
+
+7. Start the development server: `php artisan serve`
+
+8. _Optional:_ Generate Database seed: `php artisan db:seed`
