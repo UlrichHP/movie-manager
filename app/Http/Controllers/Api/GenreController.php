@@ -65,7 +65,7 @@ class GenreController extends Controller
 
     public function update(GenreFormRequest $request, Genre $genre): JsonResponse
     {
-        if (Auth::id() !== $genre->user_id) {
+        if (!Auth::user()->hasRole('admin') && Auth::id() !== $genre->user_id) {
             return response()->json([
                 'message' => 'Accès non autorisé'
             ], 403);
@@ -86,7 +86,7 @@ class GenreController extends Controller
 
     public function destroy(Genre $genre): JsonResponse
     {
-        if (Auth::id() !== $genre->user_id) {
+        if (!Auth::user()->hasRole('admin') && Auth::id() !== $genre->user_id) {
             return response()->json([
                 'message' => 'Accès non autorisé'
             ], 403);

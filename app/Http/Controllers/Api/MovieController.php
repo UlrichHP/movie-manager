@@ -84,7 +84,7 @@ class MovieController extends Controller
             /** @var Movie $movie */
             $movie = Movie::with(['genres', 'actors'])->find($id);
 
-            if (Auth::id() !== $movie->user_id) {
+            if (!Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
                 return response()->json([
                     'message' => 'Accès non autorisé'
                 ], 403);
@@ -107,7 +107,7 @@ class MovieController extends Controller
 
     public function destroy(Movie $movie): JsonResponse
     {
-        if (Auth::id() !== $movie->user_id) {
+        if (!Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
             return response()->json([
                 'message' => 'Accès non autorisé'
             ], 403);
