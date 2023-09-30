@@ -43,6 +43,24 @@
 
 8. _Optional:_ Generate Database seed: `php artisan db:seed`
 
+## Models
+
+### Movies
+
+- title
+- description
+- year
+- duration
+
+### Genres
+- name
+
+### Actors
+
+- name
+- birthday
+- nationality
+
 ## Routes
 
 All routes urls must have `/api` prefix.
