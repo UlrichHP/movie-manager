@@ -42,3 +42,48 @@
 7. Start the development server: `php artisan serve`
 
 8. _Optional:_ Generate Database seed: `php artisan db:seed`
+
+## Routes
+
+All routes urls must have `/api` prefix.
+
+- Login: **POST** `/login`
+- Register: **POST** `/register`
+
+### Movies
+
+All movies routes urls must have `/movies` prefix.
+
+- List: **GET** `/`
+- Show: **GET** `/{id}/show`
+- Create: **POST** `/create`
+- Update: **PUT** `/{id}/edit`
+- Delete: **DELETE** `/{id}/delete`
+
+### Genres
+
+All genres routes urls must have `/genres` prefix.
+
+- List: **GET** `/`
+- Show: **GET** `/{genre}/show`
+- Create: **POST** `/create`
+- Update: **PUT** `/{genre}/edit`
+- Delete: **DELETE** `/{genre}/delete`
+
+### Actors
+
+All actors routes urls must have `/actors` prefix.
+
+- List: **GET** `/`
+- Show: **GET** `/{actor}/show`
+- Create: **POST** `/create`
+- Update: **PUT** `/{actor}/edit`
+- Delete: **DELETE** `/{actor}/delete`
+
+## Roles
+
+Two roles were created: `admin` and `editor`.
+
+An `admin` user can **edit**/**delete** a **movie**/**genre**/**actor** he hasn't created.
+
+Several permissions were also created, but they are not used at the moment.
