@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class ActorFactory extends Factory
             'name' => $this->faker->name,
             'birthday' => $this->faker->date,
             'nationality' => $this->faker->country,
+            'user_id' => User::all()->random()->id,
         ];
     }
 }

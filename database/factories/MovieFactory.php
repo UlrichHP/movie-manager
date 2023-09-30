@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use function fake;
@@ -23,6 +24,7 @@ class MovieFactory extends Factory
             'description' => $this->faker->text,
             'year' => $this->faker->year,
             'duration' => $this->faker->time,
+            'user_id' => User::all()->random()->id,
         ];
     }
 }
