@@ -13,5 +13,6 @@ class Actor extends Model
         'name',
         'birthday',
         'nationality',
+        'user_id',
     ];
 }

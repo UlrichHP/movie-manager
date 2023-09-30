@@ -20,6 +20,7 @@ class GenreFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'user_id' => ['integer', 'exists:users,id'],
         ];
     }
 }

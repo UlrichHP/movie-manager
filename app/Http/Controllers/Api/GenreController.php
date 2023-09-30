@@ -8,7 +8,9 @@ use App\Models\Genre;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+use function array_merge;
 use function response;
 
 class GenreController extends Controller
@@ -35,7 +37,9 @@ class GenreController extends Controller
     public function store(GenreFormRequest $request): JsonResponse
     {
         try {
-            $genre = Genre::create($request->validated());
+            $genre = Genre::create(array_merge($request->validated(), [
+                'user_id' => Auth::id(),
+            ]));
 
             return response()->json([
                 'success' => true,
@@ -61,6 +65,12 @@ class GenreController extends Controller
 
     public function update(GenreFormRequest $request, Genre $genre): JsonResponse
     {
+        if (Auth::id() !== $genre->user_id) {
+            return response()->json([
+                'message' => 'Accès non autorisé'
+            ], 403);
+        }
+
         try {
             $genre->update($request->validated());
 
@@ -76,6 +86,12 @@ class GenreController extends Controller
 
     public function destroy(Genre $genre): JsonResponse
     {
+        if (Auth::id() !== $genre->user_id) {
+            return response()->json([
+                'message' => 'Accès non autorisé'
+            ], 403);
+        }
+
         try {
             $genre->delete();
 

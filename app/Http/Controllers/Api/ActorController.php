@@ -8,7 +8,9 @@ use App\Models\Actor;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+use function array_merge;
 use function response;
 
 class ActorController extends Controller
@@ -35,7 +37,9 @@ class ActorController extends Controller
     public function store(ActorFormRequest $request): JsonResponse
     {
         try {
-            $actor = Actor::create($request->validated());
+            $actor = Actor::create(array_merge($request->validated(), [
+                'user_id' => Auth::id(),
+            ]));
 
             return response()->json([
                 'success' => true,
@@ -61,6 +65,12 @@ class ActorController extends Controller
 
     public function update(ActorFormRequest $request, Actor $actor): JsonResponse
     {
+        if (Auth::id() !== $actor->user_id) {
+            return response()->json([
+                'message' => 'Accès non autorisé'
+            ], 403);
+        }
+
         try {
             $actor->update($request->validated());
 
@@ -76,6 +86,12 @@ class ActorController extends Controller
 
     public function destroy(Actor $actor): JsonResponse
     {
+        if (Auth::id() !== $actor->user_id) {
+            return response()->json([
+                'message' => 'Accès non autorisé'
+            ], 403);
+        }
+
         try {
             $actor->delete();
 

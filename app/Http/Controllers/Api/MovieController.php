@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MovieFormRequest;
 use App\Http\Requests\SearchRequest;
-use App\Models\Actor;
-use App\Models\Genre;
 use App\Models\Movie;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
+use function array_merge;
 use function response;
 
 class MovieController extends Controller
@@ -49,7 +49,9 @@ class MovieController extends Controller
     public function store(MovieFormRequest $request): JsonResponse
     {
         try {
-            $movie = Movie::create($request->validated());
+            $movie = Movie::create(array_merge($request->validated(), [
+                'user_id' => Auth::id(),
+            ]));
 
             $movie->genres()->sync($request->validated('genres'));
             $movie->actors()->sync($request->validated('actors'));
@@ -81,6 +83,13 @@ class MovieController extends Controller
         try {
             /** @var Movie $movie */
             $movie = Movie::with(['genres', 'actors'])->find($id);
+
+            if (Auth::id() !== $movie->user_id) {
+                return response()->json([
+                    'message' => 'Accès non autorisé'
+                ], 403);
+            }
+
             $movie->update($request->validated());
 
             $movie->genres()->sync($request->validated('genres'));
@@ -98,6 +107,12 @@ class MovieController extends Controller
 
     public function destroy(Movie $movie): JsonResponse
     {
+        if (Auth::id() !== $movie->user_id) {
+            return response()->json([
+                'message' => 'Accès non autorisé'
+            ], 403);
+        }
+
         try {
             $movie->delete();
 

@@ -15,6 +15,7 @@ class Movie extends Model
         'description',
         'year',
         'duration',
+        'user_id',
     ];
 
     public function genres(): BelongsToMany
