@@ -19,16 +19,25 @@ class Movie extends Model
         'user_id',
     ];
 
+    /**
+     * @return BelongsTo<User, Movie>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsToMany<Genre>
+     */
     public function genres(): BelongsToMany
     {
         return $this->belongsToMany(Genre::class);
     }
 
+    /**
+     * @return BelongsToMany<Actor>
+     */
     public function actors(): BelongsToMany
     {
         return $this->belongsToMany(Actor::class);

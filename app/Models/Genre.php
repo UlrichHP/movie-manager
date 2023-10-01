@@ -16,11 +16,17 @@ class Genre extends Model
         'user_id',
     ];
 
+    /**
+     * @return BelongsTo<User, Genre>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsToMany<Movie>
+     */
     public function movies(): BelongsToMany
     {
         return $this->belongsToMany(Movie::class);

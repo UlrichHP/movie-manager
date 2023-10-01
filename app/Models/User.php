@@ -44,16 +44,25 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * @return HasMany<Movie>
+     */
     public function movies(): HasMany
     {
         return $this->hasMany(Movie::class);
     }
 
+    /**
+     * @return HasMany<Genre>
+     */
     public function genres(): HasMany
     {
         return $this->hasMany(Genre::class);
     }
 
+    /**
+     * @return HasMany<Actor>
+     */
     public function actors(): HasMany
     {
         return $this->hasMany(Actor::class);
