@@ -24,13 +24,13 @@ class MovieController extends Controller
         }
 
         if ($genre = $request->validated('genre')) {
-            $query->whereHas('genres', function($query) use ($genre) {
+            $query->whereHas('genres', function ($query) use ($genre) {
                 $query->where('name', 'like', "%$genre%");
             });
         }
 
         if ($actor = $request->validated('actor')) {
-            $query->whereHas('actors', function($query) use ($actor) {
+            $query->whereHas('actors', function ($query) use ($actor) {
                 $query->where('name', 'like', "%$actor%");
             });
         }
@@ -83,9 +83,9 @@ class MovieController extends Controller
             /** @var Movie $movie */
             $movie = Movie::with(['genres', 'actors'])->find($id);
 
-            if (!Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
+            if (! Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
                 return response()->json([
-                    'message' => 'Accès non autorisé'
+                    'message' => 'Accès non autorisé',
                 ], 403);
             }
 
@@ -106,9 +106,9 @@ class MovieController extends Controller
 
     public function destroy(Movie $movie): JsonResponse
     {
-        if (!Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
+        if (! Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
             return response()->json([
-                'message' => 'Accès non autorisé'
+                'message' => 'Accès non autorisé',
             ], 403);
         }
 

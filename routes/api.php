@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\ActorController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GenreController;
 use App\Http\Controllers\Api\MovieController;
-use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

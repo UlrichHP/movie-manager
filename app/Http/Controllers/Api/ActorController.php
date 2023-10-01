@@ -20,7 +20,7 @@ class ActorController extends Controller
         $query = Actor::query();
         $search = $request->input('search');
 
-        if (null !== $search) {
+        if ($search !== null) {
             $query->where('name', 'like', "%$search%");
         }
 
@@ -65,9 +65,9 @@ class ActorController extends Controller
 
     public function update(ActorFormRequest $request, Actor $actor): JsonResponse
     {
-        if (!Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {
+        if (! Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {
             return response()->json([
-                'message' => 'Accès non autorisé'
+                'message' => 'Accès non autorisé',
             ], 403);
         }
 
@@ -86,9 +86,9 @@ class ActorController extends Controller
 
     public function destroy(Actor $actor): JsonResponse
     {
-        if (!Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {
+        if (! Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {
             return response()->json([
-                'message' => 'Accès non autorisé'
+                'message' => 'Accès non autorisé',
             ], 403);
         }
 
