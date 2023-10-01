@@ -8,7 +8,6 @@ use App\Http\Requests\SearchRequest;
 use App\Models\Movie;
 use Exception;
 use Illuminate\Http\JsonResponse;
-
 use Illuminate\Support\Facades\Auth;
 
 use function array_merge;
