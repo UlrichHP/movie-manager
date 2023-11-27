@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use function response;
+use function trans;
 
 class AuthController extends Controller
 {
@@ -28,7 +29,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Utilisateur créé',
+                'message' => trans('User created'),
                 'user' => $user,
             ], 201);
         } catch (Exception $e) {
@@ -43,14 +44,14 @@ class AuthController extends Controller
             $token = $user->createToken(env('SECRET_TOKEN'));
 
             return response()->json([
-                'message' => 'Utilisateur connecté',
+                'message' => trans('User logged in'),
                 'user' => $user,
                 'token' => $token->plainTextToken,
             ]);
         }
 
         return response()->json([
-            'message' => 'Identifiants invalides',
+            'message' => trans('Invalid credentials'),
         ], 403);
     }
 }

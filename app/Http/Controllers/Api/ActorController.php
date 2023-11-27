@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 use function array_merge;
 use function response;
+use function trans;
 
 class ActorController extends Controller
 {
@@ -43,7 +44,7 @@ class ActorController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'L\'acteur(rice) a été créé',
+                'message' => trans('Actor has been created'),
                 'data' => $actor,
             ]);
         } catch (Exception $e) {
@@ -67,7 +68,7 @@ class ActorController extends Controller
     {
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {
             return response()->json([
-                'message' => 'Accès non autorisé',
+                'message' => trans('Unauthorized access'),
             ], 403);
         }
 
@@ -76,7 +77,7 @@ class ActorController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'L\'acteur(rice) a été modifie',
+                'message' => trans('Actor has been updated'),
                 'data' => $actor,
             ]);
         } catch (Exception $e) {
@@ -88,7 +89,7 @@ class ActorController extends Controller
     {
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {
             return response()->json([
-                'message' => 'Accès non autorisé',
+                'message' => trans('Unauthorized access'),
             ], 403);
         }
 
@@ -97,7 +98,7 @@ class ActorController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'L\'acteur(rice) a été supprimé',
+                'message' => trans('Actor has been deleted'),
             ]);
         } catch (Exception $e) {
             return response()->json($e);

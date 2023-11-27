@@ -1,0 +1,15 @@
+{
+    "Actor has been created": "L'acteur(rice) a été créé",
+    "Actor has been updated": "L'acteur(rice) a été modifie",
+    "Actor has been deleted": "L'acteur(rice) a été supprimé",
+    "Genre has been created": "Le genre a été créé",
+    "Genre has been updated": "Le genre a été modifie",
+    "Genre has been deleted": "Le genre a été supprimé",
+    "Invalid credentials": "Identifiants invalides",
+    "Movie has been created": "Le film a été créé",
+    "Movie has been updated": "Le film a été modifie",
+    "Movie has been deleted": "Le film a été supprimé",
+    "Unauthorized access": "Accès non autorisé",
+    "User created": "Utilisateur créé",
+    "User logged in": "Utilisateur connecté"
+}

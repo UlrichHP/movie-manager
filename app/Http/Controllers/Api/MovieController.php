@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 use function array_merge;
 use function response;
+use function trans;
 
 class MovieController extends Controller
 {
@@ -57,7 +58,7 @@ class MovieController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le film a été créé',
+                'message' => trans('Movie has been created'),
                 'data' => $movie,
             ]);
         } catch (Exception $e) {
@@ -85,7 +86,7 @@ class MovieController extends Controller
 
             if (! Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
                 return response()->json([
-                    'message' => 'Accès non autorisé',
+                    'message' => trans('Unauthorized access'),
                 ], 403);
             }
 
@@ -96,7 +97,7 @@ class MovieController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le film a été modifie',
+                'message' => trans('Movie has been updated'),
                 'data' => $movie,
             ]);
         } catch (Exception $e) {
@@ -108,7 +109,7 @@ class MovieController extends Controller
     {
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
             return response()->json([
-                'message' => 'Accès non autorisé',
+                'message' => trans('Unauthorized access'),
             ], 403);
         }
 
@@ -117,7 +118,7 @@ class MovieController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le film a été supprimé',
+                'message' => trans('Movie has been deleted'),
             ]);
         } catch (Exception $e) {
             return response()->json($e);

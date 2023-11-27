@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 use function array_merge;
 use function response;
+use function trans;
 
 class GenreController extends Controller
 {
@@ -43,7 +44,7 @@ class GenreController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le genre a été créé',
+                'message' => trans('Genre has been created'),
                 'data' => $genre,
             ]);
         } catch (Exception $e) {
@@ -67,7 +68,7 @@ class GenreController extends Controller
     {
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $genre->user_id) {
             return response()->json([
-                'message' => 'Accès non autorisé',
+                'message' => trans('Unauthorized access'),
             ], 403);
         }
 
@@ -76,7 +77,7 @@ class GenreController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le genre a été modifie',
+                'message' => trans('Genre has been updated'),
                 'data' => $genre,
             ]);
         } catch (Exception $e) {
@@ -88,7 +89,7 @@ class GenreController extends Controller
     {
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $genre->user_id) {
             return response()->json([
-                'message' => 'Accès non autorisé',
+                'message' => trans('Unauthorized access'),
             ], 403);
         }
 
@@ -97,7 +98,7 @@ class GenreController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Le genre a été supprimé',
+                'message' => trans('Genre has been deleted'),
             ]);
         } catch (Exception $e) {
             return response()->json($e);
