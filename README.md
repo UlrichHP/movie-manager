@@ -25,6 +25,10 @@
 - **Pagination :**
   - Paginer la liste des films pour une meilleure gestion des résultats.
 
+## Api documentation
+
+Api documentation created with [L5-Swagger](https://github.com/DarkaOnLine/L5-Swagger) and accessible at this url: [/api/documentation](http://localhost:8000/api/documentation)
+
 ## Installation
 
 1. Clone the repository: `git clone https://github.com/UlrichHP/movie-manager.git`

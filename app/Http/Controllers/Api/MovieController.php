@@ -9,6 +9,7 @@ use App\Models\Movie;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_merge;
@@ -17,6 +18,51 @@ use function trans;
 
 class MovieController extends Controller
 {
+    /**
+     * @OA\GET(
+     *     path="/api/movies",
+     *     tags={"Movie"},
+     *     summary="Get all movies",
+     *
+     *     @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          description="Page number",
+     *          required=false,
+     *
+     *          @OA\Schema(type="integer")
+     *      ),
+     *
+     *     @OA\Parameter(
+     *           name="title",
+     *           in="query",
+     *           description="Movie title",
+     *           required=false,
+     *
+     *           @OA\Schema(type="string")
+     *       ),
+     *
+     *     @OA\Parameter(
+     *           name="genre",
+     *           in="query",
+     *           description="Genre name",
+     *           required=false,
+     *
+     *           @OA\Schema(type="string")
+     *       ),
+     *
+     *     @OA\Parameter(
+     *           name="actor",
+     *           in="query",
+     *           description="Actor name",
+     *           required=false,
+     *
+     *           @OA\Schema(type="string")
+     *       ),
+     *
+     *     @OA\Response(response="200", description="Movies list paginated or filtered by title, genre or actor parameters"),
+     * )
+     */
     public function index(SearchRequest $request): JsonResponse
     {
         $query = Movie::query()->with(['genres', 'actors']);
@@ -67,6 +113,24 @@ class MovieController extends Controller
         }
     }
 
+    /**
+     * @OA\GET(
+     *     path="/api/movies/{movie}/show",
+     *     tags={"Movie"},
+     *     summary="Get a movie",
+     *
+     *     @OA\Parameter(
+     *            name="movie",
+     *            in="path",
+     *            description="Movie id",
+     *            required=true,
+     *
+     *            @OA\Schema(type="integer")
+     *        ),
+     *
+     *     @OA\Response(response="200", description="Return movie details"),
+     * )
+     */
     public function show(string $id): JsonResponse
     {
         try {
@@ -106,6 +170,26 @@ class MovieController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/movies/{movie}/delete",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Movie"},
+     *     summary="Delete a movie",
+     *
+     *     @OA\Parameter(
+     *         name="movie",
+     *         in="path",
+     *         description="Movie id",
+     *         required=true,
+     *
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\Response(response="200", description="Movie has been deleted"),
+     *     @OA\Response(response="403", description="Unauthorized access")
+     * )
+     */
     public function destroy(Movie $movie): JsonResponse
     {
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {

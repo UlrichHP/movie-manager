@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_merge;
@@ -17,6 +18,24 @@ use function trans;
 
 class ActorController extends Controller
 {
+    /**
+     * @OA\GET(
+     *     path="/api/actors",
+     *     tags={"Actor"},
+     *     summary="Get all actors",
+     *
+     *     @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          description="Page number",
+     *          required=false,
+     *
+     *          @OA\Schema(type="integer")
+     *      ),
+     *
+     *     @OA\Response(response="200", description="Actors list paginated"),
+     * )
+     */
     public function index(Request $request): JsonResponse
     {
         $query = Actor::query();
@@ -53,6 +72,24 @@ class ActorController extends Controller
         }
     }
 
+    /**
+     * @OA\GET(
+     *     path="/api/actors/{actor}/show",
+     *     tags={"Actor"},
+     *     summary="Get an actor",
+     *
+     *     @OA\Parameter(
+     *            name="actor",
+     *            in="path",
+     *            description="Actor id",
+     *            required=true,
+     *
+     *            @OA\Schema(type="integer")
+     *        ),
+     *
+     *     @OA\Response(response="200", description="Return actor details"),
+     * )
+     */
     public function show(Actor $actor): JsonResponse
     {
         try {
@@ -86,6 +123,26 @@ class ActorController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/actors/{actor}/delete",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Actor"},
+     *     summary="Delete an actor",
+     *
+     *     @OA\Parameter(
+     *         name="actor",
+     *         in="path",
+     *         description="Actor id",
+     *         required=true,
+     *
+     *         @OA\Schema(type="integer")
+     *     ),
+     *
+     *     @OA\Response(response="200", description="Actor has been deleted"),
+     *     @OA\Response(response="403", description="Unauthorized access")
+     * )
+     */
     public function destroy(Actor $actor): JsonResponse
     {
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {

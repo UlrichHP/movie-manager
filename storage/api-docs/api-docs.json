@@ -1,0 +1,404 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "MovieManager Swagger",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/actors": {
+            "get": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Get all actors",
+                "operationId": "1803efc016d554a6a72206208ca14f2e",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Actors list paginated"
+                    }
+                }
+            }
+        },
+        "/api/actors/{actor}/show": {
+            "get": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Get an actor",
+                "operationId": "1143f20fe1646e92ff79ee55825d73b7",
+                "parameters": [
+                    {
+                        "name": "actor",
+                        "in": "path",
+                        "description": "Actor id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return actor details"
+                    }
+                }
+            }
+        },
+        "/api/actors/{actor}/delete": {
+            "delete": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Delete an actor",
+                "operationId": "10ff9b8222a30abfd5be073d089b0f23",
+                "parameters": [
+                    {
+                        "name": "actor",
+                        "in": "path",
+                        "description": "Actor id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Actor has been deleted"
+                    },
+                    "403": {
+                        "description": "Unauthorized access"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register an user",
+                "operationId": "8e4e3cb7b46126f4696379d3c7eeb4ad",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "222b2625838e3c57e017987f73598fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in"
+                    },
+                    "403": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/genres": {
+            "get": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Get all genres",
+                "operationId": "0ff78353b1c27ef8905e58f3cf31370a",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Genres list paginated"
+                    }
+                }
+            }
+        },
+        "/api/genres/create": {
+            "post": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Create a genre",
+                "operationId": "65e104f3cb9e4a6ff66dee5489c7faa3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Genre name",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Genre has been created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/genres/{genre}/show": {
+            "get": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Get an actor",
+                "operationId": "fd0c50f8be77c97cb7f12b6da02b69cb",
+                "parameters": [
+                    {
+                        "name": "genre",
+                        "in": "path",
+                        "description": "Genre id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return genre details"
+                    }
+                }
+            }
+        },
+        "/api/genres/{genre}/delete": {
+            "delete": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Delete a genre",
+                "operationId": "b5fe9b13a11d1aea73710c6cdab9ee6b",
+                "parameters": [
+                    {
+                        "name": "genre",
+                        "in": "path",
+                        "description": "Genre id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Genre has been deleted"
+                    },
+                    "403": {
+                        "description": "Unauthorized access"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/movies": {
+            "get": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Get all movies",
+                "operationId": "f1b3cb64ae74885cdcf404eebe09485f",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Movie title",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "genre",
+                        "in": "query",
+                        "description": "Genre name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "actor",
+                        "in": "query",
+                        "description": "Actor name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Movies list paginated or filtered by title, genre or actor parameters"
+                    }
+                }
+            }
+        },
+        "/api/movies/{movie}/show": {
+            "get": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Get a movie",
+                "operationId": "1376da2654338e4bdab47be735865b36",
+                "parameters": [
+                    {
+                        "name": "movie",
+                        "in": "path",
+                        "description": "Movie id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return movie details"
+                    }
+                }
+            }
+        },
+        "/api/movies/{movie}/delete": {
+            "delete": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "Delete a movie",
+                "operationId": "e4e644e9a5ec2459da2b9201591a4307",
+                "parameters": [
+                    {
+                        "name": "movie",
+                        "in": "path",
+                        "description": "Movie id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Movie has been deleted"
+                    },
+                    "403": {
+                        "description": "Unauthorized access"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
