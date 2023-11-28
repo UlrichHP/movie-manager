@@ -228,7 +228,7 @@
                 "tags": [
                     "Genre"
                 ],
-                "summary": "Get an actor",
+                "summary": "Get a genre",
                 "operationId": "fd0c50f8be77c97cb7f12b6da02b69cb",
                 "parameters": [
                     {

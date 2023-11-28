@@ -103,7 +103,7 @@ class GenreController extends Controller
      * @OA\GET(
      *     path="/api/genres/{genre}/show",
      *     tags={"Genre"},
-     *     summary="Get an actor",
+     *     summary="Get a genre",
      *
      *     @OA\Parameter(
      *            name="genre",
