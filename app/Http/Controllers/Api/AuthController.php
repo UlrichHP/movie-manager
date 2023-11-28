@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 use function response;
 use function trans;
@@ -31,7 +32,7 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => trans('User created'),
                 'user' => $user,
-            ], 201);
+            ], Response::HTTP_CREATED);
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -52,6 +53,6 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => trans('Invalid credentials'),
-        ], 403);
+        ], Response::HTTP_FORBIDDEN);
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Movie;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 use function array_merge;
 use function response;
@@ -87,7 +88,7 @@ class MovieController extends Controller
             if (! Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
                 return response()->json([
                     'message' => trans('Unauthorized access'),
-                ], 403);
+                ], Response::HTTP_FORBIDDEN);
             }
 
             $movie->update($request->validated());
@@ -110,7 +111,7 @@ class MovieController extends Controller
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $movie->user_id) {
             return response()->json([
                 'message' => trans('Unauthorized access'),
-            ], 403);
+            ], Response::HTTP_FORBIDDEN);
         }
 
         try {

@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 use function array_merge;
 use function response;
@@ -69,7 +70,7 @@ class ActorController extends Controller
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {
             return response()->json([
                 'message' => trans('Unauthorized access'),
-            ], 403);
+            ], Response::HTTP_FORBIDDEN);
         }
 
         try {
@@ -90,7 +91,7 @@ class ActorController extends Controller
         if (! Auth::user()->hasRole('admin') && Auth::id() !== $actor->user_id) {
             return response()->json([
                 'message' => trans('Unauthorized access'),
-            ], 403);
+            ], Response::HTTP_FORBIDDEN);
         }
 
         try {
