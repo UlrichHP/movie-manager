@@ -17,14 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MovieController::class, 'index']);
-Route::get('/movies/{movie}', [MovieController::class, 'show']);
+Route::view('/', 'movie.index');
+Route::view('/movies/{movie}', 'movie.show');
 
-Route::get('/actors', [ActorController::class, 'index']);
-Route::get('/actors/{actor}', [ActorController::class, 'show']);
+Route::view('/actors', 'actor.index');
+Route::view('/actors/{actor}', 'actor.show');
 
-Route::get('/genres', [GenreController::class, 'index']);
-Route::get('/genres/{genre}', [GenreController::class, 'show']);
+Route::view('/genres', 'genre.index');
+Route::view('/genres/{genre}', 'genre.show');
 
-Route::get('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'register']);
+Route::view('/login', 'auth.login');
+Route::view('/register', 'auth.register');
