@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ActorController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MovieController::class, 'index']);
+Route::get('/movies/{movie}', [MovieController::class, 'show']);
+
+Route::get('/actors', [ActorController::class, 'index']);
+Route::get('/actors/{actor}', [ActorController::class, 'show']);
+
+Route::get('/genres', [GenreController::class, 'index']);
+Route::get('/genres/{genre}', [GenreController::class, 'show']);
+
+Route::get('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'register']);
