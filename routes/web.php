@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\ActorController;
-use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 
