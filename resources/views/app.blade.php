@@ -23,18 +23,18 @@
                 <div class="collapse navbar-collapse" id="bdNavbar">
                     <ul class="navbar-nav flex-row flex-wrap flex-grow-1 justify-content-center bd-navbar-nav pt-2 py-md-0">
                         <li class="nav-item col-6 col-md-auto">
-                            <a class="nav-link p-2 {{ request()->route()->uri === '/' ? 'active' : '' }}" href="/">Films</a>
+                            <a class="nav-link p-2 {{ request()->route()->uri === '/' ? 'active' : '' }}" href="/">{{ __('Movies') }}</a>
                         </li>
                         <li class="nav-item col-6 col-md-auto">
-                            <a class="nav-link p-2 {{ request()->route()->uri === 'actors' ? 'active' : '' }}" href="/actors">Acteurs</a>
+                            <a class="nav-link p-2 {{ request()->route()->uri === 'actors' ? 'active' : '' }}" href="/actors">{{ __('Actors') }}</a>
                         </li>
                         <li class="nav-item col-6 col-md-auto">
-                            <a class="nav-link p-2 {{ request()->route()->uri === 'genres' ? 'active' : '' }}" href="/genres">Genres</a>
+                            <a class="nav-link p-2 {{ request()->route()->uri === 'genres' ? 'active' : '' }}" href="/genres">{{ __('Genres') }}</a>
                         </li>
                     </ul>
                     <div class="col-md-3 text-end">
-                        <a href="{{ route('login') }}" type="button" class="btn btn-outline-info me-2 {{ request()->route()->uri === 'login' ? 'active' : '' }}">Se connecter</a>
-                        <a href="{{ route('register') }}" type="button" class="btn btn-outline-primary {{ request()->route()->uri === 'register' ? 'active' : '' }}">S'inscrire</a>
+                        <a href="{{ route('login') }}" type="button" class="btn btn-outline-info me-2 {{ request()->route()->uri === 'login' ? 'active' : '' }}">{{ __('Login') }}</a>
+                        <a href="{{ route('register') }}" type="button" class="btn btn-outline-primary {{ request()->route()->uri === 'register' ? 'active' : '' }}">{{ __('Register') }}</a>
                     </div>
                 </div>
             </nav>
