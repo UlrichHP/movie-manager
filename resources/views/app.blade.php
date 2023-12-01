@@ -33,8 +33,8 @@
                         </li>
                     </ul>
                     <div class="col-md-3 text-end">
-                        <a href="/login" type="button" class="btn btn-outline-info me-2 {{ request()->route()->uri === 'login' ? 'active' : '' }}">Se connecter</a>
-                        <a href="/register" type="button" class="btn btn-outline-primary {{ request()->route()->uri === 'register' ? 'active' : '' }}">S'inscrire</a>
+                        <a href="{{ route('login') }}" type="button" class="btn btn-outline-info me-2 {{ request()->route()->uri === 'login' ? 'active' : '' }}">Se connecter</a>
+                        <a href="{{ route('register') }}" type="button" class="btn btn-outline-primary {{ request()->route()->uri === 'register' ? 'active' : '' }}">S'inscrire</a>
                     </div>
                 </div>
             </nav>

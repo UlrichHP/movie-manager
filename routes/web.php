@@ -26,5 +26,5 @@ Route::view('/actors/{actor}', 'actor.show');
 Route::view('/genres', 'genre.index');
 Route::view('/genres/{genre}', 'genre.show');
 
-Route::view('/login', 'auth.login');
-Route::view('/register', 'auth.register');
+Route::view('/login', 'auth.login')->name('login');
+Route::view('/register', 'auth.register')->name('register');
