@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 it('can get all genres list', function () {
-    get('api/genres')
+    get(route('api.genres.index'))
         ->assertOk()
         ->assertJsonCount(2)
         ->assertJson(function (AssertableJson $json) {
@@ -38,7 +38,7 @@ it('can get all genres list', function () {
 });
 
 it('can show one genre', function () {
-    get('api/genres/1/show')
+    get(route('api.genres.show', ['genre' => '1']))
         ->assertOk()
         ->assertJsonCount(2)
         ->assertJson(function (AssertableJson $json) {
@@ -65,9 +65,9 @@ it('can\'t create a genre if anonymous', function () {
         'name' => 'Action',
     ];
 
-    post('/api/genres/create', $genre)
+    post(route('api.genres.store'), $genre)
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });
 
 it('can create a genre if logged in', function () {
@@ -83,9 +83,9 @@ it('can create a genre if logged in', function () {
 
     User::create($user);
 
-    $data = post('/api/login', $user);
+    $data = post(route('api.login'), $user);
 
-    post('/api/genres/create', $genre, [
+    post(route('api.genres.store'), $genre, [
         'Authorization' => 'Bearer '.$data['token'],
     ])
         ->assertOk()
@@ -113,13 +113,13 @@ it('can create a genre if logged in', function () {
 });
 
 it('can\'t update a genre if anonymous', function () {
-    put('/api/genres/1/edit', [])
+    put(route('api.genres.update', ['genre' => '1']), [])
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });
 
 it('can\'t delete a genre if anonymous', function () {
-    delete('/api/genres/1/delete', [])
+    delete(route('api.genres.destroy', ['genre' => '1']), [])
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });

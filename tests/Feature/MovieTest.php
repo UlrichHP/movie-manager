@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('can get all movies list', function () {
-    get('api/movies')
+    get(route('api.movies.index'))
         ->assertOk()
         ->assertJsonCount(2)
         ->assertJson(function (AssertableJson $json) {
@@ -41,7 +41,7 @@ it('can get all movies list', function () {
 });
 
 it('can show one movie', function () {
-    get('api/movies/1/show')
+    get(route('api.movies.show', ['movie' => '1']))
         ->assertOk()
         ->assertJsonCount(2)
         ->assertJson(function (AssertableJson $json) {
@@ -68,19 +68,19 @@ it('can show one movie', function () {
 });
 
 it('can\'t create a movie if anonymous', function () {
-    post('/api/movies/create', [])
+    post(route('api.movies.store'), [])
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });
 
 it('can\'t update a movie if anonymous', function () {
-    put('/api/movies/1/edit', [])
+    put(route('api.movies.update', ['movie' => '1']), [])
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });
 
 it('can\'t delete a movie if anonymous', function () {
-    delete('/api/movies/1/delete', [])
+    delete(route('api.movies.destroy', ['movie' => '1']), [])
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });

@@ -15,9 +15,10 @@ it('can register an user', function () {
         'name' => 'John Doe',
         'email' => 'johndoe@gmail.com',
         'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
-    post('/api/register', $newUser)
+    post(route('api.register'), $newUser)
         ->assertCreated()
         ->assertJsonCount(3)
         ->assertJson(function (AssertableJson $json) {
@@ -55,7 +56,7 @@ it('can log in an user', function () {
 
     User::create($user);
 
-    post('/api/login', $user)
+    post(route('api.login'), $user)
         ->assertOk()
         ->assertJsonCount(3)
         ->assertJson(function (AssertableJson $json) {
@@ -92,7 +93,7 @@ it('can\'t log in an user with bad credentials', function () {
 
     User::create($user);
 
-    post('/api/login', [
+    post(route('api.login'), [
         'email' => 'johndoe@gmail.com',
         'password' => 'password2',
     ])

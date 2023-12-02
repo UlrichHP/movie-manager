@@ -18,42 +18,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('movies')->group(function () {
-    Route::get('/', [MovieController::class, 'index']);
-    Route::get('/{id}/show', [MovieController::class, 'show']);
+Route::prefix('movies')->as('movies.')->group(function () {
+    Route::get('/', [MovieController::class, 'index'])->name('index');
+    Route::get('/{movie}/show', [MovieController::class, 'show'])->name('show');
 });
 
-Route::prefix('genres')->group(function () {
-    Route::get('/', [GenreController::class, 'index']);
-    Route::get('/{genre}/show', [GenreController::class, 'show']);
+Route::prefix('genres')->as('genres.')->group(function () {
+    Route::get('/', [GenreController::class, 'index'])->name('index');
+    Route::get('/{genre}/show', [GenreController::class, 'show'])->name('show');
 });
 
-Route::prefix('actors')->group(function () {
-    Route::get('/', [ActorController::class, 'index']);
-    Route::get('/{actor}/show', [ActorController::class, 'show']);
+Route::prefix('actors')->as('actors.')->group(function () {
+    Route::get('/', [ActorController::class, 'index'])->name('index');
+    Route::get('/{actor}/show', [ActorController::class, 'show'])->name('show');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('movies')->group(function () {
-        Route::post('/create', [MovieController::class, 'store']);
-        Route::put('/{id}/edit', [MovieController::class, 'update']);
-        Route::delete('/{movie}/delete', [MovieController::class, 'destroy']);
+    Route::prefix('movies')->as('movies.')->group(function () {
+        Route::post('/create', [MovieController::class, 'store'])->name('store');
+        Route::put('/{movie}/edit', [MovieController::class, 'update'])->name('update');
+        Route::delete('/{movie}/delete', [MovieController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('genres')->group(function () {
-        Route::post('/create', [GenreController::class, 'store']);
-        Route::put('/{genre}/edit', [GenreController::class, 'update']);
-        Route::delete('/{genre}/delete', [GenreController::class, 'destroy']);
+    Route::prefix('genres')->as('genres.')->group(function () {
+        Route::post('/create', [GenreController::class, 'store'])->name('store');
+        Route::put('/{genre}/edit', [GenreController::class, 'update'])->name('update');
+        Route::delete('/{genre}/delete', [GenreController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('actors')->group(function () {
-        Route::post('/create', [ActorController::class, 'store']);
-        Route::put('/{actor}/edit', [ActorController::class, 'update']);
-        Route::delete('/{actor}/delete', [ActorController::class, 'destroy']);
+    Route::prefix('actors')->as('actors.')->group(function () {
+        Route::post('/create', [ActorController::class, 'store'])->name('store');
+        Route::put('/{actor}/edit', [ActorController::class, 'update'])->name('update');
+        Route::delete('/{actor}/delete', [ActorController::class, 'destroy'])->name('destroy');
     });
 });
 
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])
     ->middleware('guest')
     ->name('login');

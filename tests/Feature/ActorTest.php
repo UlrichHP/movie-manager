@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 it('can get all actors list', function () {
-    get('api/actors')
+    get(route('api.actors.index'))
         ->assertOk()
         ->assertJsonCount(2)
         ->assertJson(function (AssertableJson $json) {
@@ -42,7 +42,7 @@ it('can get all actors list', function () {
 });
 
 it('can show one actor', function () {
-    get('api/actors/1/show')
+    get(route('api.actors.show', ['actor' => '1']))
         ->assertOk()
         ->assertJsonCount(2)
         ->assertJson(function (AssertableJson $json) {
@@ -75,9 +75,9 @@ it('can\'t create an actor if anonymous', function () {
         'nationality' => 'American',
     ];
 
-    post('/api/actors/create', $actor)
+    post(route('api.actors.store'), $actor)
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });
 
 it('can create an actor if logged in', function () {
@@ -95,9 +95,9 @@ it('can create an actor if logged in', function () {
 
     User::create($user);
 
-    $data = post('/api/login', $user);
+    $data = post(route('api.login'), $user);
 
-    post('/api/actors/create', $actor, [
+    post(route('api.actors.store'), $actor, [
         'Authorization' => 'Bearer '.$data['token'],
     ])
         ->assertOk()
@@ -129,13 +129,13 @@ it('can create an actor if logged in', function () {
 });
 
 it('can\'t update an actor if anonymous', function () {
-    put('/api/actors/1/edit', [])
+    put(route('api.actors.update', ['actor' => '1']), [])
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });
 
 it('can\'t delete an actor if anonymous', function () {
-    delete('/api/actors/1/delete', [])
+    delete(route('api.actors.destroy', ['actor' => '1']), [])
         ->assertFound()
-        ->assertRedirect('/api/login');
+        ->assertRedirect(route('login'));
 });
